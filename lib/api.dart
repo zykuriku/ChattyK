@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'constants.dart';
 import 'dart:convert';
@@ -15,7 +15,7 @@ class Api {
             'https://api.openai.com/v1/chat/completions',
           ),
           headers: {
-            "Authorization": "Bearer ${apikey}",
+            "Authorization": "Bearer $apikey",
             "Content-Type": "application/json"
           },
           body: jsonEncode({
