@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "109624620541",
+    "project_id": "clone-c6fee",
+    "storage_bucket": "clone-c6fee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109624620541:android:4ce87cb8a39df3a9b75594",
+        "android_client_info": {
+          "package_name": "com.example.gptc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3DMzzbTltLGZrGVFsEoYbXhuQ7e8864E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
