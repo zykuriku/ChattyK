@@ -104,7 +104,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
                         Api api = Api();
                         chatList =
-                            await api.getData(textEditingController.text);
+                            await Api.getData(textEditingController.text);
                       },
                       icon: Icon(
                         Icons.send,
