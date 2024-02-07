@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'ChatScreen.dart';
 import 'constants.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,6 +11,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    // RemoteConfig remoteConfig = RemoteConfig.instance;
+    // await remoteConfig.fetchAndActivate();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

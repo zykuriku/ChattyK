@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'constants.dart';
 import 'dart:convert';
 import 'Chatting.dart';
+import 'k.dart';
 
 class Api {
   static Future<List<Chatting>> getData(String message) async {
@@ -13,7 +15,7 @@ class Api {
             'https://api.openai.com/v1/chat/completions',
           ),
           headers: {
-            "Authorization": "Bearer $apikey",
+            "Authorization": "Bearer ${apikey}",
             "Content-Type": "application/json"
           },
           body: jsonEncode({
@@ -23,6 +25,7 @@ class Api {
             ],
             "temperature": 0.7
           }));
+      print("data sent");
       String data = response.body;
       var decodedData = jsonDecode(data) as Map<String, dynamic>;
       if (decodedData["error"] != null) {

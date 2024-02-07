@@ -102,7 +102,6 @@ class _ChatScreenState extends State<ChatScreen> {
                           _istyping = true;
                         });
 
-                        Api api = Api();
                         chatList =
                             await Api.getData(textEditingController.text);
                       },
