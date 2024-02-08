@@ -15,7 +15,7 @@ class Api {
             'https://api.openai.com/v1/chat/completions',
           ),
           headers: {
-            "Authorization": "Bearer $apikey",
+            "Authorization": "Bearer ${dotenv.env['apikey']}",
             "Content-Type": "application/json"
           },
           body: jsonEncode({
@@ -41,6 +41,7 @@ class Api {
                       ['content'],
                 ));
       }
+      print('data received');
       return ChatList;
     } catch (error) {
       print(error);
