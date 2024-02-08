@@ -1,6 +1,10 @@
+import 'dart:developer';
+import 'proChat.dart';
 import 'package:clonegpt/chat.dart';
+import 'package:clonegpt/proChat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
 import 'constants.dart';
 import 'api.dart';
 import 'Chatting.dart';
@@ -15,10 +19,12 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   bool _istyping = false;
   late TextEditingController textEditingController;
+  late ScrollController _scrollController;
 
   @override
   void initState() {
     textEditingController = TextEditingController();
+    _scrollController = ScrollController();
     super.initState();
   }
 
@@ -28,9 +34,9 @@ class _ChatScreenState extends State<ChatScreen> {
     super.dispose();
   }
 
-  List<Chatting> chatList = [];
   @override
   Widget build(BuildContext context) {
+    final chatProvider = Provider.of<ProChat>(context);
     return Scaffold(
       backgroundColor: bg,
       appBar: AppBar(
@@ -55,11 +61,12 @@ class _ChatScreenState extends State<ChatScreen> {
         child: Column(children: [
           Flexible(
             child: ListView.builder(
-                itemCount: chatList.length,
+                itemCount: chatProvider.chatList.length,
+                controller: _scrollController,
                 itemBuilder: (context, index) {
                   return ChatWidget(
-                      msg: chatList[index].responseData,
-                      chatIndex: chatList[index].chatIndex);
+                      msg: chatProvider.chatList[index].responseData,
+                      chatIndex: chatProvider.chatList[index].chatIndex);
                 }),
           ),
           if (_istyping) ...[
@@ -80,8 +87,10 @@ class _ChatScreenState extends State<ChatScreen> {
                     style: TextStyle(
                       color: Colors.white,
                     ),
-                    // controller: textEditingController,
-                    onSubmitted: (value) {},
+                    controller: textEditingController,
+                    onSubmitted: (value) async {
+                      await sendMessage(chatProvider: chatProvider);
+                    },
                     decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderSide:
@@ -98,12 +107,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   )),
                   IconButton(
                       onPressed: () async {
-                        setState(() {
-                          _istyping = true;
-                        });
-
-                        chatList =
-                            await Api.getData(textEditingController.text);
+                        await sendMessage(chatProvider: chatProvider);
                       },
                       icon: Icon(
                         Icons.send,
@@ -116,5 +120,32 @@ class _ChatScreenState extends State<ChatScreen> {
         ]),
       ),
     );
+  }
+
+  void scroll() {
+    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+        duration: Duration(seconds: 1), curve: Curves.bounceIn);
+  }
+
+  Future<void> sendMessage({required ProChat chatProvider}) async {
+    try {
+      String msg = textEditingController.text;
+      setState(() {
+        _istyping = true;
+
+        chatProvider.addMessage(msg: msg);
+        textEditingController.clear();
+      });
+      await chatProvider.getAns(msg: msg);
+
+      setState(() {});
+    } catch (error) {
+      print(error);
+    } finally {
+      setState(() {
+        scroll();
+        _istyping = false;
+      });
+    }
   }
 }

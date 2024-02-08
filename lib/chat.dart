@@ -22,13 +22,13 @@ class ChatWidget extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Image.asset(
-                //   // chatIndex == 0 ? 'images/user.jpg' : 'images/bot.jpg',
-                //   height: 30,
-                //   width: 30,
-                // ),
+                Image.asset(
+                  chatIndex == 0 ? 'images/user.jpg' : 'images/logo.jpg',
+                  height: 30,
+                  width: 30,
+                ),
                 const SizedBox(
-                  width: 8,
+                  width: 10,
                 ),
                 Expanded(
                   child: TextWidget(

@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:json_annotation/json_annotation.dart';
-
 class Chatting {
-  String responseData = "";
+  var responseData;
   int chatIndex = 0;
 
   Chatting({required this.responseData, required this.chatIndex});
