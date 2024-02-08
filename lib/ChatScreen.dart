@@ -132,12 +132,13 @@ class _ChatScreenState extends State<ChatScreen> {
       String msg = textEditingController.text;
       setState(() {
         _istyping = true;
-
+        // chatList.add(
+        //     Chatting(responseData: textEditingController.text, chatIndex: 0));
         chatProvider.addMessage(msg: msg);
         textEditingController.clear();
       });
       await chatProvider.getAns(msg: msg);
-
+      // chatList.addAll(await Api.getData(textEditingController.text));
       setState(() {});
     } catch (error) {
       print(error);
